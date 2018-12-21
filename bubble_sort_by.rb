@@ -1,27 +1,31 @@
-def bubble_sort_by(arr)
-  i = arr.length
-  n = arr.count
+class Array
+	
 
-  while i >= 0
+def bubble_sort_by 
+  i = self.length
+  n = self.count
+	
+  while i >= 0 
     for j in 0...n - 1
-      if block_given?
-        a = yield(arr[j], arr[j + 1])
+		if block_given?
+			
+        a = yield(self[j],self[j+1])
       else
-        a = arr[j + 1] <=> arr[j]
+        a = self[j] <=> self[j+1]
       end
       if a > 0
-        arr[j], arr[j + 1] = arr[j + 1], arr[j]
+        self[j], self[j + 1] = self[j + 1], self[j]
       end
     end
     i -= 1
   end
-  arr
+  self
 end
-
+end
 # works with the block
-output = bubble_sort_by(["hi", "hello", "hey"]) do |left, right|
-  left.length - right.length
-end
+print [3,2,1,4].bubble_sort_by {|a,b|
+	b-a
+}
+
 # works without block - by default ascending
-output = bubble_sort_by(["hi", "hello", "hey"])
-p output
+print ['hi','bye','guy','ace'].bubble_sort_by 
