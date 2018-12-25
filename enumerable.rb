@@ -1,11 +1,7 @@
-
-
 module Enumerable
   #  my_each with while loop
   def my_each
-    if self.is_a? Hash
-      a = self.to_a
-    else a = self     end
+    (self.is_a? Hash) ? a = self.to_a : a = self
     i = 0
     while i < a.count
       yield a[i]
@@ -15,9 +11,7 @@ module Enumerable
 
   # my_each_with_index using while loop
   def my_each_with_index
-    if self.is_a? Hash
-      a = self.to_a
-    else a = self     end
+    (self.is_a? Hash) ? a = self.to_a : a = self
     i = 0
     while i < a.count
       yield a[i], i
@@ -31,22 +25,15 @@ module Enumerable
       arr = {}
       self.my_each do |k, v|
         a = yield(k, v)
-
-        if a
-          arr[k] = v
-        end
+        arr[k] = v if a
       end
     else
       arr = []
       self.my_each do |k|
         a = yield(k)
-
-        if a
-          arr << k
-        end
+        arr << k if a
       end
     end
-
     p arr
   end
 
@@ -56,20 +43,12 @@ module Enumerable
       p self
       self.my_each do |k, v|
         a = yield(v)
-        if !a
-          return false
-        else
-          return true
-        end
+        !a ? false : true
       end
     else
       self.my_each do |k|
         a = yield(k)
-        if !a
-          return false
-        else
-          return true
-        end
+        !a ? false : true
       end
     end
   end
@@ -79,19 +58,15 @@ module Enumerable
     if self.is_a? Hash
       self.my_each do |k, v|
         a = yield(v)
-        if a
-          return true
-        end
+        return true if a
       end
     else
       self.my_each do |k|
         a = yield(k)
-        if a
-          return true
-        end
+        return true if a
       end
     end
-    return false
+    false
   end
 
   # my_none
@@ -99,19 +74,15 @@ module Enumerable
     if self.is_a? Hash
       self.my_each do |k, v|
         a = yield(v)
-        if a
-          return false
-        end
+        return false if a
       end
     else
       self.my_each do |k|
         a = yield(k)
-        if a
-          return false
-        end
+        return false if a
       end
     end
-    return true
+    true
   end
 
   def my_count
@@ -119,12 +90,12 @@ module Enumerable
     i = 0
     if self.is_a? Hash
       c = self.keys
-      while (c[i])
+      while c[i]
         count += 1
         i += 1
       end
     else
-      while (self[i])
+      while self[i]
         count += 1
         i += 1
       end
@@ -132,12 +103,12 @@ module Enumerable
     count
   end
 
-  def my_map(proc= false)
-       if proc.is_a? Proc
-           p "yahooooo"
-       else
-           p "nahoooo"
-       end
+  def my_map(proc = false)
+    if proc.is_a? Proc
+      p "yahooooo"
+    else
+      p "nahoooo"
+    end
     if self.is_a? Hash
       result = {}
       self.my_each do |k, v|
@@ -173,8 +144,8 @@ module Enumerable
 end
 
 b = [1, 2, 3, 4, 5]
- example = Proc.new { |i| i + 1 }
-  b.my_map(&example)
+example = Proc.new {|i| i + 1}
+b.my_map(&example)
 # b.my_map{|x| x * 2}
 g = {a: 1, b: 2, c: 3, d: 4}
 e = [3, 7, 6, "hello", 5, 2, 4, 8, 12]
@@ -190,7 +161,7 @@ e = [3, 7, 6, "hello", 5, 2, 4, 8, 12]
 # e.my_select { |v| v % 3 == 0 }
 # g.my_select {|k,v| v % 2 == 0}
 # a = [1, 5, 3]
-# p e.my_map {|v| v * 2} 
+# p e.my_map {|v| v * 2}
 
 # b = [1,2,3,4,5]
 
