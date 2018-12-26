@@ -103,12 +103,7 @@ module Enumerable
     count
   end
 
-  def my_map(proc = false)
-    if proc.is_a? Proc
-      p "yahooooo"
-    else
-      p "nahoooo"
-    end
+  def my_map
     if self.is_a? Hash
       result = {}
       self.my_each do |k, v|
@@ -121,7 +116,6 @@ module Enumerable
         a = yield(v)
         result << a
       end
-
       result
     end
   end
@@ -144,7 +138,7 @@ module Enumerable
 end
 
 b = [1, 2, 3, 4, 5]
-example = Proc.new {|i| i + 1}
+example = Proc.new { |i| i + 1 }
 b.my_map(&example)
 # b.my_map{|x| x * 2}
 g = {a: 1, b: 2, c: 3, d: 4}
