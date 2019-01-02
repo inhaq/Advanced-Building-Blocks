@@ -44,11 +44,13 @@ module Enumerable
       self.my_each do |k, v|
         a = yield(v)
         !a ? false : true
+        return a
       end
     else
       self.my_each do |k|
         a = yield(k)
         !a ? false : true
+        return a
       end
     end
   end
