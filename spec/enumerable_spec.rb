@@ -1,7 +1,7 @@
-require "./enumerable.rb"
+require_relative "../lib/enumerable.rb"
 
 describe Enumerable do
-    a = [1,2,3,4,5]
+    let(:a) {[1,2,3,4,5]}
     describe "#my_count" do
         it "gives size of array" do
             expect(a.my_count).to eq(5)

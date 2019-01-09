@@ -34,23 +34,20 @@ module Enumerable
         arr << k if a
       end
     end
-    p arr
+    arr
   end
 
   # my_all
   def my_all?
     if self.is_a? Hash
-      p self
-      self.my_each do |k, v|
+        self.my_each do |k, v|
         a = yield(v)
         !a ? false : true
-        return a
       end
     else
       self.my_each do |k|
         a = yield(k)
         !a ? false : true
-        return a
       end
     end
   end
@@ -110,7 +107,6 @@ module Enumerable
       result = {}
       self.my_each do |k, v|
         a = yield(k, v)
-        p result[k] = a
       end
     else
       result = []
@@ -138,27 +134,3 @@ module Enumerable
     result
   end
 end
-
-b = [1, 2, 3, 4, 5]
-example = Proc.new { |i| i + 1 }
-b.my_map(&example)
-# b.my_map{|x| x * 2}
-g = {a: 1, b: 2, c: 3, d: 4}
-e = [3, 7, 6, "hello", 5, 2, 4, 8, 12]
-
-# e.my_each_with_index do |k, v|
-#     p k, v
-# end
-
-# e.each_with_index do |k,v|
-#     p k,v
-# end
-
-# e.my_select { |v| v % 3 == 0 }
-# g.my_select {|k,v| v % 2 == 0}
-# a = [1, 5, 3]
-# p e.my_map {|v| v * 2}
-
-# b = [1,2,3,4,5]
-
-# p b.multiply_els {|a,b|a*b}

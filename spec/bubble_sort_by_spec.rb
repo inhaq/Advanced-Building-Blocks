@@ -1,4 +1,4 @@
-require './bubble_sort_by.rb'
+require_relative '../lib/bubble_sort_by.rb'
 
 describe Array do
     describe '#bubble_sort_by' do
