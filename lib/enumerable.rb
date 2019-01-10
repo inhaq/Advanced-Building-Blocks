@@ -1,7 +1,8 @@
+# Enumerable methods
 module Enumerable
   #  my_each with while loop
   def my_each
-    (self.is_a? Hash) ? a = self.to_a : a = self
+    a = (is_a? Hash) ? to_a : self
     i = 0
     while i < a.count
       yield a[i]
@@ -11,7 +12,7 @@ module Enumerable
 
   # my_each_with_index using while loop
   def my_each_with_index
-    (self.is_a? Hash) ? a = self.to_a : a = self
+    a = (is_a? Hash) ? to_a : self
     i = 0
     while i < a.count
       yield a[i], i
@@ -21,15 +22,15 @@ module Enumerable
 
   # my_select using while loop
   def my_select
-    if self.is_a? Hash
+    if is_a? Hash
       arr = {}
-      self.my_each do |k, v|
+      my_each do |k, v|
         a = yield(k, v)
         arr[k] = v if a
       end
     else
       arr = []
-      self.my_each do |k|
+      my_each do |k|
         a = yield(k)
         arr << k if a
       end
@@ -39,13 +40,13 @@ module Enumerable
 
   # my_all
   def my_all?
-    if self.is_a? Hash
-        self.my_each do |k, v|
+    if is_a? Hash
+      my_each do |_, v|
         a = yield(v)
         !a ? false : true
       end
     else
-      self.my_each do |k|
+      my_each do |k|
         a = yield(k)
         !a ? false : true
       end
@@ -54,13 +55,13 @@ module Enumerable
 
   # my_any
   def my_any?
-    if self.is_a? Hash
-      self.my_each do |k, v|
+    if is_a? Hash
+      my_each do |_, v|
         a = yield(v)
         return true if a
       end
     else
-      self.my_each do |k|
+      my_each do |k|
         a = yield(k)
         return true if a
       end
@@ -70,13 +71,13 @@ module Enumerable
 
   # my_none
   def my_none?
-    if self.is_a? Hash
-      self.my_each do |k, v|
+    if is_a? Hash
+      my_each do |_, v|
         a = yield(v)
         return false if a
       end
     else
-      self.my_each do |k|
+      my_each do |k|
         a = yield(k)
         return false if a
       end
@@ -87,8 +88,8 @@ module Enumerable
   def my_count
     count = 0
     i = 0
-    if self.is_a? Hash
-      c = self.keys
+    if is_a? Hash
+      c = keys
       while c[i]
         count += 1
         i += 1
@@ -103,14 +104,14 @@ module Enumerable
   end
 
   def my_map
-    if self.is_a? Hash
+    if is_a? Hash
       result = {}
-      self.my_each do |k, v|
-        a = yield(k, v)
+      my_each do |k, v|
+        yield(k, v)
       end
     else
       result = []
-      self.my_each do |v|
+      my_each do |v|
         a = yield(v)
         result << a
       end
@@ -120,7 +121,7 @@ module Enumerable
 
   def my_inject
     result = 0
-    self.my_each do |i|
+    my_each do |i|
       result = yield(result, i)
     end
     result
@@ -128,7 +129,7 @@ module Enumerable
 
   def multiply_els
     result = 1
-    self.my_each do |i|
+    my_each do |i|
       result = yield(result, i)
     end
     result

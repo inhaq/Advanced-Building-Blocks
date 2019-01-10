@@ -2,16 +2,18 @@
 class Array
   def bubble_sort_by
     i = length
-    n = count
 
     while i >= 0
-      for j in 0...n - 1
+      each_with_index do |_, j|
+        j += 1
+        break if self[j].nil?
+
         a = if block_given?
-              yield(self[j], self[j + 1])
+              yield(self[j - 1], self[j])
             else
-              self[j] <=> self[j + 1]
+              self[j - 1] <=> self[j]
             end
-        self[j], self[j + 1] = self[j + 1], self[j] if a > 0
+        self[j - 1], self[j] = self[j], self[j - 1] if a > 0
       end
       i -= 1
     end
